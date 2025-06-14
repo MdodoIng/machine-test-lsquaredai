@@ -128,6 +128,14 @@ const Dashboard = () => {
           content={{
             className: "mt-auto pt-3",
             type: "chartGauge",
+            chartGauge: {
+              subtitle: "",
+              data: [
+                { label: "Permanent", count: 800, color: "#0047FF" },
+                { label: "Contract", count: 110.5, color: "#C6F61A" },
+                { label: "Part-Time", count: 300.5, color: "black" },
+              ],
+            },
           }}
         />
         <div className="col-span-3 p-4 w-full bg-off-white grid grid-cols-subgrid gap-6 rounded-3xl">

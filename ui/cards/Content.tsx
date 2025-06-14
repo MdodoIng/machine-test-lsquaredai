@@ -307,28 +307,24 @@ const Chart = (props: Props) => {
 };
 
 const ChartGauge = (props: Props) => {
-  const totalEmployees = 800;
+  const total = props.chartGauge?.data?.reduce((sum, d) => sum + d.count!, 0);
 
-  // Percent values (must sum to 1)
-  const permanent = 0.8;
-  const contract = 0.115;
-  const partTime = 0.085;
-
-  const employmentData = [
-    { type: "Permanent", percentage: "80%", color: "#0047FF" },
-    { type: "Contract", percentage: "11.5%", color: "#C6F61A" },
-    { type: "Part-Time", percentage: "8.5%", color: "black" },
-  ];
+  const dataWithPercent = props.chartGauge?.data?.map((d) => ({
+    ...d,
+    percent: ((d.count! / total!) * 100).toFixed(1),
+  }));
+  const arcsLength = props.chartGauge?.data?.map((d) => d.count! / total!);
+  const colors = props.chartGauge?.data?.map((d) => d.color);
 
   return (
     <div className={twMerge("w-full text-center", props.className)}>
       {/* Gauge */}
       <GaugeChart
         id="employee-gauge"
-        nrOfLevels={30}
-        arcsLength={[permanent, contract, partTime]}
-        colors={["#0047FF", "#C6F61A", "#000000"]}
-        percent={permanent + contract + partTime}
+        nrOfLevels={props.chartGauge?.data?.length}
+        arcsLength={arcsLength}
+        colors={colors}
+        percent={1}
         arcWidth={0.35}
         arcPadding={0.02}
         cornerRadius={6}
@@ -341,22 +337,25 @@ const ChartGauge = (props: Props) => {
 
       {/* Center Value */}
       <div className="-mt-10">
-        <div className="text-3xl font-bold">{totalEmployees}</div>
-        <div className="text-gray-500 text-sm">Total Employees</div>  
+        <div className="text-3xl font-bold">{total}</div>
+        <div className="text-gray-500 text-sm">Total Employees</div>
       </div>
 
       {/* Legend */}
       <div className="flex justify-around mt-4 text-sm">
-        {employmentData.map((item, index) => (
-          <div key={index} className="flex items-baseline text-start text-off-black/70 space-x-1">
+        {dataWithPercent!.map((item, index) => (
+          <div
+            key={index}
+            className="flex items-baseline text-start text-off-black/70 space-x-1"
+          >
             <span
               className="size-2.5 rounded"
               style={{ backgroundColor: item.color }}
             />
             <span>
-              {item.type}
+              {item.label}
               <br />
-              <span className="font-semibold text-off-black">{item.percentage}</span>
+              <span className="font-semibold text-off-black">{item.percent}%</span>
             </span>
           </div>
         ))}
