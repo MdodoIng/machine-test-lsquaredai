@@ -5,6 +5,7 @@ import Search from "./Search";
 import user from "@/assets/user.png";
 import Image from "next/image";
 import { unstable_ViewTransition as ViewTransition } from "react";
+import NavButton from "@/ui/NavButton";
 
 const Right = () => {
   const notification = 1;
@@ -18,9 +19,9 @@ const Right = () => {
       <ViewTransition name="header-button">
         {!formHover && (
           <>
-            <Button icon="solar:settings-linear" />
-            <Button icon="proicons:info" />
-            <Button>
+            <NavButton icon="solar:settings-linear" />
+            <NavButton icon="proicons:info" />
+            <NavButton>
               <svg
                 className="size-[18px]"
                 viewBox="0 0 100 100"
@@ -35,35 +36,20 @@ const Right = () => {
                   <circle cx="71" cy="23" r="14" fill="#FF5456" />
                 )}
               </svg>
-            </Button>
-            <Button>
+            </NavButton>
+            <NavButton>
               <Image
                 src={user}
                 alt="user"
                 placeholder="blur"
                 className="size-full object-cover"
               />
-            </Button>
+            </NavButton>
           </>
         )}
       </ViewTransition>
     </div>
   );
 };
-
-const Button = ({
-  icon,
-  children,
-}: {
-  icon?: string;
-  children?: React.ReactNode;
-}) => (
-  <button
-    className={`text-base aspect-square h-12 flex items-center justify-center rounded-full text-black lg:bg-white bg-off-white hover:bg-primary hover:text-white cursor-pointer  duration-300 ease-in-out overflow-hidden shrink-0 group`}
-  >
-    {" "}
-    {children ? children : <Icon icon={icon!} className="text-lg" />}
-  </button>
-);
 
 export default Right;
