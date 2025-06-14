@@ -5,10 +5,10 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 
 const Dashboard = () => {
   return (
-    <div className="flex flex-col w-full h-min pb-20 gap-6">
+    <div className="flex flex-col w-full h-min lg:pb-20 pb-6 gap-6">
       <Head />
 
-      <div className="grid w-full grid-cols-[1fr_1fr_minmax(0,1.4fr)] gap-6">
+      <div className="grid w-full xl:grid-cols-[1fr_1fr_minmax(0,1.4fr)] sm:grid-cols-2 grid-cols-1 gap-6">
         <Card
           head={{
             subtitle: "Head Count",
@@ -45,6 +45,7 @@ const Dashboard = () => {
         />
 
         <Card
+        className="max-xl:col-span-2 max-sm:col-span-1"
           head={{
             subtitle: "Stuts Brackdown",
             right: {
@@ -73,7 +74,7 @@ const Dashboard = () => {
         />
 
         <Card
-          className="col-span-2"
+          className="sm:col-span-2"
           head={{
             subtitle: "Employee Count by Department",
             title: "Track your team",
@@ -117,7 +118,7 @@ const Dashboard = () => {
         />
 
         <Card
-          className=""
+          className="max-xl:col-span-2 max-sm:col-span-1"
           head={{
             subtitle: "Employee Agreement Tracker",
             title: "Contact status",
@@ -138,9 +139,9 @@ const Dashboard = () => {
             },
           }}
         />
-        <div className="col-span-3 p-4 w-full bg-off-white grid grid-cols-subgrid gap-6 rounded-3xl">
+        <div className="xl:col-span-3 sm:col-span-2 p-4 w-full bg-off-white grid grid-cols-subgrid gap-6 rounded-3xl">
           <Card
-            className="col-span-2 bg-white"
+            className="col-span-2 bg-white max-sm:col-span-1"
             head={{
               subtitle: "Identify employees with absences",
               title: "Absenteeism",
@@ -169,6 +170,7 @@ const Dashboard = () => {
           />
 
           <Card
+          className="max-xl:col-span-2 max-sm:col-span-1"
             head={{
               hidden: false,
             }}

@@ -27,7 +27,7 @@ const Search = ({
           setFormHover(false);
         }
       }}
-      className={`flex items-center justify-start gap-3 text-base px-4 h-12  rounded-full text-black bg-white cursor-pointer  duration-1000 transition-all  ease-in-out overflow-hidden w-full  `}
+      className={`flex items-center justify-start gap-3 text-base px-4 h-12 max-lg:bg-off-white  rounded-full text-black bg-white cursor-pointer  duration-1000 transition-all  ease-in-out overflow-hidden w-full  `}
     >
       <Icon
         icon="material-symbols:search-rounded"

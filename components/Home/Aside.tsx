@@ -3,9 +3,9 @@ import React from "react";
 
 const Aside = () => {
   return (
-    <div className="  overflow-y-scroll hide-scrollbar  pt-28 pb-20   flex flex-col w-full h-full gap-6">
+    <div className="  overflow-y-scroll hide-scrollbar  lg:pt-28 pb-20   flex flex-col w-full h-full gap-6">
       <Card
-        className="bg-white"
+        className="lg:bg-white"
         head={{
           subtitle: "Top Satisfaction Score",
           title: "Top 5 rating",
@@ -74,7 +74,7 @@ const Aside = () => {
       />
 
       <Card
-        className="bg-white"
+        className="lg:bg-white"
         head={{
           subtitle: "Perfomence Elavution Result",
           title: "Metrics Rating",
@@ -97,7 +97,7 @@ const Aside = () => {
           },
         }}
       />
-      <div className="absolute top-0 left-0 w-screen h-screen bg-off-white -z-10" />
+      <div className="absolute top-0 left-0 w-screen h-screen bg-off-white -z-10 max-lg:hidden" />
     </div>
   );
 };
