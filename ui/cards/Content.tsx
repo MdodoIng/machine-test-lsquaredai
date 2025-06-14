@@ -60,9 +60,10 @@ const Content = (props: Props) => {
     counts: Counts,
     chart: Chart,
     chartGauge: ChartGauge,
+    profileList: ProfileList,
   };
 
-  const Compents = d[props.type];
+  const Compents = d[props.type!];
 
   return <Compents {...props} />;
 };
@@ -318,7 +319,6 @@ const ChartGauge = (props: Props) => {
 
   return (
     <div className={twMerge("w-full text-center", props.className)}>
-      {/* Gauge */}
       <GaugeChart
         id="employee-gauge"
         nrOfLevels={props.chartGauge?.data?.length}
@@ -335,13 +335,11 @@ const ChartGauge = (props: Props) => {
         animate={false}
       />
 
-      {/* Center Value */}
       <div className="-mt-10">
         <div className="text-3xl font-bold">{total}</div>
         <div className="text-gray-500 text-sm">Total Employees</div>
       </div>
 
-      {/* Legend */}
       <div className="flex justify-around mt-4 text-sm">
         {dataWithPercent!.map((item, index) => (
           <div
@@ -355,13 +353,19 @@ const ChartGauge = (props: Props) => {
             <span>
               {item.label}
               <br />
-              <span className="font-semibold text-off-black">{item.percent}%</span>
+              <span className="font-semibold text-off-black">
+                {item.percent}%
+              </span>
             </span>
           </div>
         ))}
       </div>
     </div>
   );
+};
+
+const ProfileList = (props: Props) => {
+  return <div className={twMerge("w-full text-center", props.className)}></div>;
 };
 
 export default Content;
