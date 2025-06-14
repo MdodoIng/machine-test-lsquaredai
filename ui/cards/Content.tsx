@@ -4,6 +4,7 @@ import { JSX, useEffect, useRef, useState } from "react";
 import React from "react";
 import { FC } from "react";
 import { twMerge } from "tailwind-merge";
+import GaugeChart from "react-gauge-chart";
 export type CardBottomType =
   | "profileList"
   | "counts"
@@ -58,6 +59,7 @@ const Content = (props: Props) => {
     barChart: BarChart,
     counts: Counts,
     chart: Chart,
+    chartGauge: ChartGauge,
   };
 
   const Compents = d[props.type];
@@ -299,6 +301,65 @@ const Chart = (props: Props) => {
             </div>
           );
         })}
+      </div>
+    </div>
+  );
+};
+
+const ChartGauge = (props: Props) => {
+  const totalEmployees = 800;
+
+  // Percent values (must sum to 1)
+  const permanent = 0.8;
+  const contract = 0.115;
+  const partTime = 0.085;
+
+  const employmentData = [
+    { type: "Permanent", percentage: "80%", color: "#0047FF" },
+    { type: "Contract", percentage: "11.5%", color: "#C6F61A" },
+    { type: "Part-Time", percentage: "8.5%", color: "black" },
+  ];
+
+  return (
+    <div className={twMerge("w-full text-center", props.className)}>
+      {/* Gauge */}
+      <GaugeChart
+        id="employee-gauge"
+        nrOfLevels={30}
+        arcsLength={[permanent, contract, partTime]}
+        colors={["#0047FF", "#C6F61A", "#000000"]}
+        percent={permanent + contract + partTime}
+        arcWidth={0.35}
+        arcPadding={0.02}
+        cornerRadius={6}
+        textColor="transparent"
+        needleColor="transparent"
+        needleBaseColor="transparent"
+        hideText
+        animate={false}
+      />
+
+      {/* Center Value */}
+      <div className="-mt-10">
+        <div className="text-3xl font-bold">{totalEmployees}</div>
+        <div className="text-gray-500 text-sm">Total Employees</div>  
+      </div>
+
+      {/* Legend */}
+      <div className="flex justify-around mt-4 text-sm">
+        {employmentData.map((item, index) => (
+          <div key={index} className="flex items-baseline text-start text-off-black/70 space-x-1">
+            <span
+              className="size-2.5 rounded"
+              style={{ backgroundColor: item.color }}
+            />
+            <span>
+              {item.type}
+              <br />
+              <span className="font-semibold text-off-black">{item.percentage}</span>
+            </span>
+          </div>
+        ))}
       </div>
     </div>
   );

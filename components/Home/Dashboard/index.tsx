@@ -126,37 +126,8 @@ const Dashboard = () => {
             },
           }}
           content={{
-            type: "chart",
-            className: "mt-6",
-            chart: {
-              labels: "Employess",
-              data: [
-                {
-                  labels: "sales",
-                  count: 14,
-                },
-                {
-                  labels: "suport",
-                  count: 15,
-                },
-                {
-                  labels: "desginer",
-                  count: 30,
-                },
-                {
-                  labels: "finance",
-                  count: 20,
-                },
-                {
-                  labels: "Opractions",
-                  count: 30,
-                },
-                {
-                  labels: "dev",
-                  count: 10,
-                },
-              ],
-            },
+            className: "mt-auto pt-3",
+            type: "chartGauge",
           }}
         />
         <div className="col-span-3 p-4 w-full bg-off-white grid grid-cols-subgrid gap-6 rounded-3xl">
