@@ -15,10 +15,11 @@ type Props = {
       linkToClass?: string;
       icon?: string;
     };
-    hidden?: boolean
+    hidden?: boolean;
   };
   content?: {
     type?: CardBottomType;
+     className?: string;
     counts?: {
       number?: number | string;
       increment?: boolean;
@@ -38,27 +39,25 @@ type Props = {
           labels: string;
           count: number;
         }[];
-      }
+      };
     };
     chartGauge?: {
-
       subtitle?: string;
-      data?:
-      {
+      data?: {
         label?: string;
         color?: string;
         count?: number;
-      }[]
-    }
+      }[];
+    };
     barChart?: {
-      data?: Record<string, number>,
-      colors?: string[]
-    }
+      data?: Record<string, number>;
+      colors?: string[];
+    };
     heatmapGrid?: {
-      HeatmapGrid?: string[][],
-      days?: string[],
-      percentRanges?: string[]
-    }
+      HeatmapGrid?: string[][];
+      days?: string[];
+      percentRanges?: string[];
+    };
   };
 };
 
@@ -67,18 +66,12 @@ const Card = (props: Props) => {
     <div
       className={twMerge(
         "bg-off-white rounded-3xl p-5 flex flex-col",
-        props.className
+        props.className,
       )}
     >
-      {props.head?.hidden !== false &&
-        <Head
-          {...props.head}
-        />
-      }
+      {props.head?.hidden !== false && <Head {...props.head} />}
 
-      <Content
-        {...props.content}
-      />
+      <Content {...props.content} />
     </div>
   );
 };
