@@ -1,6 +1,7 @@
 import React from "react";
 import Head from "./Head";
 import Card from "@/ui/cards";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 const Dashboard = () => {
   return (
@@ -8,12 +9,57 @@ const Dashboard = () => {
       <Head />
 
       <div className="grid w-full grid-cols-[1fr_1fr_minmax(0,1.4fr)]">
-        <div className="col-span-3 w-full bg-off-white grid grid-cols-subgrid gap-6 rounded-3xl">
-          <div className="col-span-2"></div>
+        <Card
+          head={{
+            subtitle: "Head Count",
+            right: {
+              icon: "lsicon:user-outline",
+            },
+          }}
+          content={{
+            type: "counts",
+            counts: {
+              increment: true,
+              title: "327",
+              subtitle: "New Hires",
+              number: "+47%",
+            },
+          }}
+        />
+
+        <div className="col-span-3 p-4 w-full bg-off-white grid grid-cols-subgrid gap-6 rounded-3xl">
+          <Card
+            className="col-span-2 bg-white"
+            head={{
+              subtitle: "Identify employees with absences",
+              title: "Absenteeism",
+              right: {
+                children: (
+                  <p className="text-off-black/70 flex items-center gap-2">
+                    <Icon icon="proicons:info" className="text-xl shrink-0" />
+                    Monitor the percentage, total and trends of employee
+                    absences
+                  </p>
+                ),
+              },
+            }}
+            content={{
+              className: "mt-auto pt-6",
+              type: "barChart",
+              barChart: {
+                colors: ["#0074e8", "#a3d34c", "#111111"],
+                data: {
+                  annual: 45,
+                  personal: 165,
+                  other: 50,
+                },
+              },
+            }}
+          />
 
           <Card
             head={{
-              hidden: true,
+              hidden: false,
             }}
             content={{
               type: "heatmapGrid",

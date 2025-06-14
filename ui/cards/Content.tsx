@@ -57,6 +57,7 @@ type Props = {
 const Content = (props: Props) => {
   const d: Record<CardBottomType, FC<any>> = {
     heatmapGrid: HeatmapGrid,
+    barChart: BarChart,
   };
 
   const Compents = d[props.type];
@@ -111,15 +112,10 @@ export const HeatmapGrid = (props: Props) => {
 
 const BarChart = (props: Props) => {
   const barWidth = 10;
-  const barMargin = 4; // 2px on each side
+  const barMargin = 6;
   const containerRef = useRef<HTMLDivElement>(null);
   const [totalBars, setTotalBars] = useState(26); // default fallback
-  // Usage example
-  const dynamicData = {
-    annual: 45,
-    personal: 165,
-    other: 50,
-  };
+  const data = props.barChart?.data;
 
   useEffect(() => {
     const updateBars = () => {
@@ -139,15 +135,15 @@ const BarChart = (props: Props) => {
     };
   }, []);
 
-  const total = Object.values(data).reduce((sum, val) => sum + val, 0);
+  const total = Object.values(data!).reduce((sum, val) => sum + val, 0);
 
-  let rawRatios = Object.entries(data).map(([type, value]) => ({
+  let rawRatios = Object.entries(data!).map(([type, value]) => ({
     type,
     raw: value,
     bars: Math.round((value / total) * totalBars),
   }));
 
-  // Correct rounding differences
+
   const barCountSum = rawRatios.reduce((sum, item) => sum + item.bars, 0);
   const diff = totalBars - barCountSum;
   if (diff !== 0) {
@@ -158,95 +154,66 @@ const BarChart = (props: Props) => {
     rawRatios = sorted;
   }
 
-  const colors = {
-    annual: "#0074e8",
-    personal: "#a3d34c",
-    other: "#111111",
-  };
+  const colors = props.barChart?.colors;
 
   const barWithLabels = rawRatios.map(({ type, raw, bars }) => ({
     type,
-    label: `${raw} Employees`,
+    raw: raw,
+    label: `${raw} ${type}`,
     bars: Array(bars).fill(type),
   }));
 
   return (
-    <div style={{ fontFamily: "Arial, sans-serif", padding: "20px" }}>
+    <div className={twMerge("w-full", props.className)}>
       <div
-        ref={containerRef}
         style={{
-          display: "flex",
-          width: "100%",
-          height: "60px",
-          position: "relative",
+          gap: `${barMargin}px`,
         }}
+        ref={containerRef}
+        className="relative flex w-full h-24"
       >
         {barWithLabels.map((section, i) => (
           <div
             key={i}
             style={{
-              display: "flex",
-              position: "relative",
-              flex: section.bars.length,
-              height: "100%",
               gap: `${barMargin}px`,
             }}
+            className="flex relative h-full"
           >
-            {/* Label above first bar */}
-            <div
-              style={{
-                position: "absolute",
-                top: "-25px",
-                left: "0",
-                fontSize: "14px",
-                whiteSpace: "nowrap",
-              }}
-            >
-              {section.type === "other" ? `${data.other} Other` : section.label}
+            <div className="absolute -top-[25px] left-0 text-sm whitespace-nowrap">
+              <b>{section.raw}</b> {section.type}
             </div>
 
-            {/* Bars */}
             {section.bars.map((type, idx) => (
               <div
                 key={idx}
                 style={{
                   width: `${barWidth}px`,
-                  height: "100%",
-                  backgroundColor: colors[type],
-                  borderRadius: "4px",
+
+                  backgroundColor: colors![i],
                 }}
+                className="h-full rounded-full"
               />
             ))}
           </div>
         ))}
       </div>
 
-      {/* Legend */}
       <div style={{ display: "flex", gap: "20px", marginTop: "30px" }}>
-        {Object.entries(colors).map(([key, color]) => (
-          <Legend
-            key={key}
-            color={color}
-            label={key.charAt(0).toUpperCase() + key.slice(1)}
-          />
+        {barWithLabels.map((item, i) => (
+          <div key={i} className="flex capitalize items-center gap-1.5">
+            <div
+              style={{
+                backgroundColor: colors![i],
+              }}
+              className="rounded-full size-2.5"
+            />
+            <span>{item.type}</span>
+          </div>
         ))}
       </div>
     </div>
   );
 };
-
-const Legend = ({ color, label }) => (
-  <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-    <div
-      style={{
-        width: "10px",
-        height: "10px",
-        backgroundColor: color,
-        borderRadius: "2px",
-      }}
-    />
-    <span>{label}</span>
-  </div>
-);
 
 export default Content;
