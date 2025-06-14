@@ -55,6 +55,23 @@ type Props = {
       days?: string[];
       percentRanges?: string[];
     };
+    profileList?: {
+      profiles?: {
+        name: string;
+        role: string;
+        rating: number;
+        status: string;
+        avatar: string;
+        roleColor: string;
+      }[];
+    };
+    averageRating?: {
+      data?: {
+        label: string;
+        count: number;
+        color: string;
+      }[];
+    };
   };
 };
 

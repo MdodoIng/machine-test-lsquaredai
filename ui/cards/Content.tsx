@@ -5,13 +5,15 @@ import React from "react";
 import { FC } from "react";
 import { twMerge } from "tailwind-merge";
 import GaugeChart from "react-gauge-chart";
+import Image from "next/image";
 export type CardBottomType =
   | "profileList"
   | "counts"
   | "chart"
   | "chartGauge"
   | "barChart"
-  | "heatmapGrid";
+  | "heatmapGrid"
+  | "averageRating";
 
 type Props = {
   type?: CardBottomType;
@@ -51,6 +53,24 @@ type Props = {
     days?: string[];
     percentRanges?: string[];
   };
+  profileList?: {
+    profiles?: {
+      name: string;
+      role: string;
+      rating: number;
+      status: string;
+      avatar: string;
+      roleColor: string;
+    }[];
+  };
+
+  averageRating?: {
+    data?: {
+      label: string;
+      count: number;
+      color: string;
+    }[];
+  };
 };
 
 const Content = (props: Props) => {
@@ -61,6 +81,7 @@ const Content = (props: Props) => {
     chart: Chart,
     chartGauge: ChartGauge,
     profileList: ProfileList,
+    averageRating: AverageRating,
   };
 
   const Compents = d[props.type!];
@@ -365,7 +386,113 @@ const ChartGauge = (props: Props) => {
 };
 
 const ProfileList = (props: Props) => {
-  return <div className={twMerge("w-full text-center", props.className)}></div>;
+  return (
+    <div
+      className={twMerge(
+        "w-full text-center gap-6 flex flex-col",
+        props.className,
+      )}
+    >
+      {props.profileList?.profiles!.map((p, i) => (
+        <div key={i} className="grid grid-cols-[40px_auto_1fr] gap-4">
+          <Image
+            src={p.avatar}
+            alt={p.name}
+            width={40}
+            height={40}
+            className="h-full aspect-square  rounded-full object-cover mr-4"
+          />
+          <div className="flex-1 flex-col flex items-start">
+            <div className="text-sm font-semibold text-gray-800">{p.name}</div>
+            <div className={`text-sm ${p.roleColor}`}>{p.role}</div>
+          </div>
+          <div className="flex items-center gap-1 text-sm mr-auto">
+            <span className="text-yellow-500 text-base">★</span>
+            <span className="font-semibold">{p.rating}</span>&nbsp;
+            <span className="text-gray-500">{p.status}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 };
 
+const AverageRating = (props: Props) => {
+  const ratingWeights = {
+    Excellent: 5,
+    Good: 4,
+    Fair: 3,
+    Improved: 2,
+  };
+
+  const total = props.averageRating?.data!.reduce(
+    (sum, item) => sum + item.count,
+    0,
+  );
+
+  const weightedSum = props.averageRating?.data!.reduce((sum, item) => {
+    // @ts-ignore
+    const score = ratingWeights[item.label] || 0;
+    return sum + item.count * score;
+  }, 0);
+
+  const averageRating = (weightedSum! / total!).toFixed(1);
+
+  const bars = props.averageRating?.data!.map((item) => ({
+    ...item,
+    percent: ((item.count / total!) * 100).toFixed(1),
+    flex: item.count / total!,
+  }));
+
+  return (
+    <div className={twMerge("w-full flex-col", props.className)}>
+      <div className="flex items-center text-2xl font-semibold">
+        <span className="text-orange-500">★</span>
+        <span className="text-5xl ml-1 mr-4">{averageRating}</span>
+        <span className="text-gray-400 text-sm font-normal">
+          Average <br /> rating
+        </span>
+      </div>
+
+      <div className="flex w-full  mt-6 gap-1">
+        {bars!.map((bar, i) => (
+          <div
+            key={i}
+            style={{
+              flex: bar.flex,
+            }}
+            className="flex flex-col justify-start gap-2 font-semibold"
+          >
+            <span>{bar.percent}% </span>
+            <div
+              className="h-4 rounded-full overflow-hidden "
+              style={{
+                backgroundColor: bar.color,
+              }}
+            />
+          </div>
+        ))}
+      </div>
+
+      <div className="flex justify-between text-sm flex-wrap mt-3">
+        {bars!.map((bar, i) => (
+          <div key={i} className="flex items-center space-x-1 mr-2 mt-2">
+            <span
+              className="w-3 h-3 rounded-full"
+              style={{ backgroundColor: bar.color }}
+            />
+            <span className="text-off-black/70">{bar.label}</span>
+          </div>
+        ))}
+      </div>
+      <div className="text-xs text-off-black/70 flex items-center space-x-2 pt-4">
+        <span className="text-lg leading-none">ⓘ</span>
+        <p>
+          Highlight employees needing improvement with suggestions for training
+          or mentoring
+        </p>
+      </div>
+    </div>
+  );
+};
 export default Content;

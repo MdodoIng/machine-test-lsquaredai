@@ -4,6 +4,9 @@ const nextConfig: NextConfig = {
   experimental: {
     viewTransition: true,
   },
+  images: {
+    domains: ["i.pravatar.cc"],
+  },
 };
 
 export default nextConfig;
