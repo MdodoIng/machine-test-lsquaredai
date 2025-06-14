@@ -19,7 +19,7 @@ type Props = {
   };
   content?: {
     type?: CardBottomType;
-     className?: string;
+    className?: string;
     counts?: {
       number?: number | string;
       increment?: boolean;
@@ -33,13 +33,10 @@ type Props = {
     };
     chart?: {
       labels: string;
-      data: {
-        labels: string;
-        data: {
-          labels: string;
-          count: number;
-        }[];
-      };
+      data?: {
+        labels?: string;
+        count?: number;
+      }[];
     };
     chartGauge?: {
       subtitle?: string;

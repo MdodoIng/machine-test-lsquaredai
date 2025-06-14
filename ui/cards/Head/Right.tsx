@@ -35,7 +35,7 @@ const Right = ({
             );
           case !!icon:
             return (
-              <button className="flex items-center justify-center bg-primary text-white h-10 aspect-square w-auto rounded-2xl">
+              <button className="flex items-center justify-center bg-primary text-white h-10 aspect-square w-auto rounded-2xl text-center">
                 <Icon icon={icon} className="text-2xl" />
               </button>
             );

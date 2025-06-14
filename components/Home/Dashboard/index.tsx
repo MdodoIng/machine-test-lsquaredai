@@ -8,7 +8,7 @@ const Dashboard = () => {
     <div className="flex flex-col w-full h-min pb-20 gap-6">
       <Head />
 
-      <div className="grid w-full grid-cols-[1fr_1fr_minmax(0,1.4fr)]">
+      <div className="grid w-full grid-cols-[1fr_1fr_minmax(0,1.4fr)] gap-6">
         <Card
           head={{
             subtitle: "Head Count",
@@ -26,7 +26,139 @@ const Dashboard = () => {
             },
           }}
         />
+        <Card
+          head={{
+            subtitle: "HR to Employee",
+            right: {
+              icon: "cuida:headphone-outline",
+            },
+          }}
+          content={{
+            type: "counts",
+            counts: {
+              increment: false,
+              title: "75",
+              subtitle: "Human resoures",
+              number: "-1.2",
+            },
+          }}
+        />
 
+        <Card
+          head={{
+            subtitle: "Stuts Brackdown",
+            right: {
+              icon: "mage:users",
+            },
+          }}
+          content={{
+            type: "counts",
+            counts: {
+              title: "1.350",
+              subtitle: "Employees",
+              numbersList: [
+                {
+                  color: "#2A8E19",
+                  count: "87",
+                  title: "Probation",
+                },
+                {
+                  color: "#D89027",
+                  count: "87",
+                  title: "Pending",
+                },
+              ],
+            },
+          }}
+        />
+
+        <Card
+          className="col-span-2"
+          head={{
+            subtitle: "Employee Count by Department",
+            title: "Track your team",
+            right: {
+              linkTo: "/",
+            },
+          }}
+          content={{
+            type: "chart",
+            className: "mt-6",
+            chart: {
+              labels: "Employess",
+              data: [
+                {
+                  labels: "sales",
+                  count: 14,
+                },
+                {
+                  labels: "suport",
+                  count: 15,
+                },
+                {
+                  labels: "desginer",
+                  count: 30,
+                },
+                {
+                  labels: "finance",
+                  count: 20,
+                },
+                {
+                  labels: "Opractions",
+                  count: 30,
+                },
+                {
+                  labels: "dev",
+                  count: 10,
+                },
+              ],
+            },
+          }}
+        />
+
+        <Card
+          className=""
+          head={{
+            subtitle: "Employee Agreement Tracker",
+            title: "Contact status",
+            right: {
+              linkTo: "/",
+            },
+          }}
+          content={{
+            type: "chart",
+            className: "mt-6",
+            chart: {
+              labels: "Employess",
+              data: [
+                {
+                  labels: "sales",
+                  count: 14,
+                },
+                {
+                  labels: "suport",
+                  count: 15,
+                },
+                {
+                  labels: "desginer",
+                  count: 30,
+                },
+                {
+                  labels: "finance",
+                  count: 20,
+                },
+                {
+                  labels: "Opractions",
+                  count: 30,
+                },
+                {
+                  labels: "dev",
+                  count: 10,
+                },
+              ],
+            },
+          }}
+        />
         <div className="col-span-3 p-4 w-full bg-off-white grid grid-cols-subgrid gap-6 rounded-3xl">
           <Card
             className="col-span-2 bg-white"

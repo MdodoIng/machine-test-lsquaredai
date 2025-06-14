@@ -1,4 +1,5 @@
 "use client";
+import { Icon } from "@iconify/react/dist/iconify.js";
 import { JSX, useEffect, useRef, useState } from "react";
 import React from "react";
 import { FC } from "react";
@@ -26,14 +27,11 @@ type Props = {
     }[];
   };
   chart?: {
-    labels: string;
-    data: {
-      labels: string;
-      data: {
-        labels: string;
-        count: number;
-      }[];
-    };
+    labels?: string;
+    data?: {
+      labels?: string;
+      count?: number;
+    }[];
   };
   chartGauge?: {
     subtitle?: string;
@@ -58,6 +56,8 @@ const Content = (props: Props) => {
   const d: Record<CardBottomType, FC<any>> = {
     heatmapGrid: HeatmapGrid,
     barChart: BarChart,
+    counts: Counts,
+    chart: Chart,
   };
 
   const Compents = d[props.type];
@@ -114,7 +114,7 @@ const BarChart = (props: Props) => {
   const barWidth = 10;
   const barMargin = 6;
   const containerRef = useRef<HTMLDivElement>(null);
-  const [totalBars, setTotalBars] = useState(26); // default fallback
+  const [totalBars, setTotalBars] = useState(26);
   const data = props.barChart?.data;
 
   useEffect(() => {
@@ -142,7 +142,6 @@ const BarChart = (props: Props) => {
     raw: value,
     bars: Math.round((value / total) * totalBars),
   }));
-
 
   const barCountSum = rawRatios.reduce((sum, item) => sum + item.bars, 0);
   const diff = totalBars - barCountSum;
@@ -211,6 +210,95 @@ const BarChart = (props: Props) => {
             <span>{item.type}</span>
           </div>
         ))}
+      </div>
+    </div>
+  );
+};
+
+const Counts = (props: Props) => {
+  return (
+    <div
+      className={twMerge(
+        "w-full flex items-end justify-between gap-10",
+        props.className,
+      )}
+    >
+      <div className="flex flex-col gap-1">
+        <h3 className="text-black text-4xl font-semibold">
+          {props.counts?.title}
+        </h3>
+        <p className="text-off-black/70 text-sm">{props.counts?.subtitle}</p>
+      </div>
+      {props.counts?.numbersList ? (
+        <div className={`flex items-center gap-5 text-2xl  `}>
+          {props.counts.numbersList.map((item, idx) => (
+            <div key={idx}>
+              <h4
+                style={{
+                  color: item.color,
+                }}
+              >
+                {item.count}
+              </h4>
+              <p className="text-sm text-off-black/70">{item.title}</p>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div
+          className={`flex items-center gap-2 text-2xl  font-semibold" ${props.counts?.increment ? "text-green-500" : "text-red-500"}`}
+        >
+          <span className="">{props.counts?.number}</span>
+          <Icon
+            icon={
+              props.counts?.increment ? "typcn:arrow-up" : "typcn:arrow-down"
+            }
+            className={`h-full aspect-square rounded-full text-white p-0.5 flex items-center justify-center ${props.counts?.increment ? "bg-green-500" : "bg-red-500"}`}
+          />
+        </div>
+      )}
+    </div>
+  );
+};
+
+const Chart = (props: Props) => {
+  // @ts-ignore
+  const maxCount = Math.max(...props.chart?.data!.map((d) => d.count));
+
+  return (
+    <div className={twMerge("w-full", props.className)}>
+      <div className="flex items-end justify-start h-52 space-x-6 overflow-x-scroll hide-scrollbar">
+        {props.chart?.data!.map((dept, i) => {
+          const heightPercent = (dept.count! / maxCount) * 100;
+
+          return (
+            <div
+              key={i}
+              className="flex flex-col items-center justify-end group h-full relative w-14 shrink-0"
+            >
+              {/* Tooltip */}
+              <div className="absolute flex w-max text-xs top-0 bg-black text-white px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition">
+                {dept.count} {props.chart?.labels}
+                <div className="absolute w-2 h-2 bg-black rotate-45 -bottom-1 left-1/2 -translate-x-1/2" />
+              </div>
+
+              {/* Bar */}
+              <div className="flex h-full items-end bg-off-gray w-full rounded-full">
+                <div
+                  className={`bg-black group-hover:bg-primary duration-300 w-full  rounded-full`}
+                  style={{
+                    height: `${heightPercent - maxCount / 4}%`,
+                  }}
+                ></div>
+              </div>
+
+              {/* Label */}
+              <div className="mt-2 text-xs text-center capitalize text-off-black/70">
+                {dept.labels}
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
