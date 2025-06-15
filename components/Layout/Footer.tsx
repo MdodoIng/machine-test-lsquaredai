@@ -12,7 +12,7 @@ const Footer = () => {
   const [active, setActive] = useState("home");
 
   return (
-    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-black px-3 py-2 rounded-full flex space-x-3 shadow-2xl z-50 md:hidden">
+    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-black px-3 py-2 rounded-full flex space-x-3 shadow-2xl z-50 lg:hidden">
       {navItems.map((item) => (
         <button
           key={item.id}
