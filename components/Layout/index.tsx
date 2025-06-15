@@ -1,6 +1,7 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 import Header from "./Header";
+import Footer from "./Footer";
 
 const Layout = ({
   children,
@@ -15,10 +16,11 @@ const Layout = ({
       <main
         className={twMerge(
           "flex size-full items-center justify-center ",
-          className
+          className,
         )}
       >
         {children}
+        <Footer />
       </main>
     </div>
   );

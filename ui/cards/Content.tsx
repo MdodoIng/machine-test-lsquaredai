@@ -117,7 +117,7 @@ export const HeatmapGrid = (props: Props) => {
               style={{
                 backgroundColor: color,
               }}
-              className="sm:rounded-xl rounded aspect-square w-full"
+              className="sm:rounded-xl rounded-md aspect-square w-full"
             />
           ))}
         </React.Fragment>
@@ -126,7 +126,10 @@ export const HeatmapGrid = (props: Props) => {
       <div></div>
 
       {days!.map((day, i) => (
-        <div key={i} className="text-off-black sm:text-sm text-xs font-medium text-center">
+        <div
+          key={i}
+          className="text-off-black sm:text-sm text-xs font-medium text-center"
+        >
           {day}
         </div>
       ))}
@@ -222,7 +225,7 @@ const BarChart = (props: Props) => {
         ))}
       </div>
 
-      <div  className="flex sm:gap-5 gap-3 mt-7 flex-wrap">
+      <div className="flex sm:gap-5 gap-3 mt-7 flex-wrap">
         {barWithLabels.map((item, i) => (
           <div key={i} className="flex capitalize items-center gap-1.5">
             <div
@@ -254,7 +257,9 @@ const Counts = (props: Props) => {
         <p className="text-off-black/70 text-sm">{props.counts?.subtitle}</p>
       </div>
       {props.counts?.numbersList ? (
-        <div className={`flex items-center sm:gap-5 gap-4 sm:text-2xl text-lg  `}>
+        <div
+          className={`flex items-center sm:gap-5 gap-4 sm:text-2xl text-lg  `}
+        >
           {props.counts.numbersList.map((item, idx) => (
             <div key={idx}>
               <h4
@@ -317,7 +322,7 @@ const Chart = (props: Props) => {
               </div>
 
               {/* Label */}
-              <div className="mt-2 text-xs text-center capitalize text-off-black/70 z-10 w-full overflow-hidden" >
+              <div className="mt-2 text-xs text-center capitalize text-off-black/70 z-10 w-full overflow-hidden">
                 {dept.labels}
               </div>
             </div>
@@ -336,7 +341,7 @@ const ChartGauge = (props: Props) => {
     percent: ((d.count! / total!) * 100).toFixed(1),
   }));
   const arcsLength = props.chartGauge?.data?.map((d) => d.count! / total!);
-  const colors = props.chartGauge?.data?.map((d) => d.color);
+  const colors: any = props.chartGauge?.data?.map((d) => d.color);
 
   return (
     <div className={twMerge("w-full text-center", props.className)}>
@@ -394,7 +399,10 @@ const ProfileList = (props: Props) => {
       )}
     >
       {props.profileList?.profiles!.map((p, i) => (
-        <div key={i} className="grid grid-cols-[40px_auto_1fr] gap-4 items-center">
+        <div
+          key={i}
+          className="grid grid-cols-[40px_auto_1fr] gap-4 items-center"
+        >
           <Image
             src={p.avatar}
             alt={p.name}
@@ -403,7 +411,9 @@ const ProfileList = (props: Props) => {
             className="size-10 aspect-square  rounded-full object-cover mr-4"
           />
           <div className="flex-1 flex-col flex text-start items-start justify-start">
-            <div className="sm:text-sm text-xs font-semibold text-gray-800">{p.name}</div>
+            <div className="sm:text-sm text-xs font-semibold text-gray-800">
+              {p.name}
+            </div>
             <div className={`sm:text-sm text-sm ${p.roleColor}`}>{p.role}</div>
           </div>
           <div className="flex items-center gap-1 text-sm mr-auto">
