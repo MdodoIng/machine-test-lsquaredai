@@ -20,7 +20,7 @@
 
 @layer utilities {
   .wrapper {
-    width: min(96%, 1520px);
+    width: min(98%, 1520px);
     margin-inline: auto;
   }
 
