@@ -3,9 +3,9 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import { useEffect, useRef, useState } from "react";
 
 const navItems = [
-  { id: "home", icon: "mdi:home", label: "Home" },
-  { id: "users", icon: "mdi:account-group", label: "Users" },
-  { id: "calendar", icon: "mdi:calendar", label: "Calendar" },
+  { id: "home", icon: "fluent:home-16-regular", label: "Home" },
+  { id: "users", icon: "flowbite:users-solid", label: "Users" },
+  { id: "calendar", icon: "solar:calendar-linear", label: "Calendar" },
 ];
 
 const Footer = () => {
