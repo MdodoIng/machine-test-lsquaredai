@@ -12,6 +12,7 @@
   "dependencies": {
     "@iconify/react": "^6.0.0",
     "@types/react-gauge-chart": "^0.4.3",
+    "@vercel/analytics": "^1.5.0",
     "lodash": "^4.17.21",
     "next": "15.3.3",
     "react": "^19.0.0",
