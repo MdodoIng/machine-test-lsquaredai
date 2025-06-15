@@ -401,7 +401,7 @@ const ProfileList = (props: Props) => {
       {props.profileList?.profiles!.map((p, i) => (
         <div
           key={i}
-          className="grid grid-cols-[40px_auto_1fr] gap-4 items-center"
+          className="grid grid-cols-[40px_minmax(0,1fr)_minmax(auto,110px)] gap-4 items-center"
         >
           <Image
             src={p.avatar}
