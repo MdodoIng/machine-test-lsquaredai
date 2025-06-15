@@ -19,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="w-svh overflow-x-clip">
       <body className={`${poppins.className} antialiased flex w-screen lg:h-screen lg:overflow-hidden max-w-lg:overflow-x-hidden`}>
         {children}
       </body>
