@@ -18,7 +18,7 @@ const Head = ({
   };
 }) => {
   return (
-    <div className="flex items-start justify-between gap-2 mb-6">
+    <div className="flex items-start justify-between max-[400px]:flex-wrap gap-2 mb-6">
       <Title subtitle={subtitle} title={title} />
       <Right
         className={right?.className}

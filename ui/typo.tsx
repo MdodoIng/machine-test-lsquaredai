@@ -25,7 +25,7 @@ export const Title = (props: Props) => {
   return (
     <p
       className={twMerge(
-        "text-2xl font-medium flex items-center justify-start gap-2",
+        "sm:text-2xl text-xl font-medium flex items-center justify-start gap-2",
         props.className
       )}
     >
@@ -38,7 +38,7 @@ export const CardSubtitle = (props: Props) => {
   return (
     <p
       className={twMerge(
-        "text-sm text-off-black flex items-center justify-start gap-2",
+        "sm:text-sm text-xs text-off-black flex items-center justify-start gap-2",
         props.className
       )}
     >
@@ -50,7 +50,7 @@ export const CardTitle = (props: Props) => {
   return (
     <p
       className={twMerge(
-        "text-[22px]  flex items-center justify-start gap-2",
+        "sm:text-[22px] text-lg  flex items-center justify-start gap-2",
         props.className
       )}
     >

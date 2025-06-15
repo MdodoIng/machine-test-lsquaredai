@@ -98,7 +98,7 @@ export const HeatmapGrid = (props: Props) => {
       style={{
         gridTemplateColumns: `auto repeat(${heatmapData!.length}, minmax(0,1fr))`,
       }}
-      className={twMerge("grid gap-2", props.className)}
+      className={twMerge("grid sm:gap-2 gap-1", props.className)}
     >
       {heatmapData!.map((row, rowIndex) => (
         <React.Fragment key={rowIndex}>
@@ -117,7 +117,7 @@ export const HeatmapGrid = (props: Props) => {
               style={{
                 backgroundColor: color,
               }}
-              className="rounded-xl aspect-square w-full"
+              className="sm:rounded-xl rounded aspect-square w-full"
             />
           ))}
         </React.Fragment>
@@ -126,7 +126,7 @@ export const HeatmapGrid = (props: Props) => {
       <div></div>
 
       {days!.map((day, i) => (
-        <div key={i} className="text-off-black text-sm font-medium text-center">
+        <div key={i} className="text-off-black sm:text-sm text-xs font-medium text-center">
           {day}
         </div>
       ))}
@@ -203,7 +203,7 @@ const BarChart = (props: Props) => {
             }}
             className="flex relative h-full"
           >
-            <div className="absolute -top-[25px] left-0 text-sm whitespace-nowrap">
+            <div className="absolute -top-[25px] left-0 sm:text-sm text-xs z-10 overflow-hidden w-full whitespace-nowrap">
               <b>{section.raw}</b> {section.type}
             </div>
 
@@ -222,7 +222,7 @@ const BarChart = (props: Props) => {
         ))}
       </div>
 
-      <div style={{ display: "flex", gap: "20px", marginTop: "30px" }}>
+      <div  className="flex sm:gap-5 gap-3 mt-7 flex-wrap">
         {barWithLabels.map((item, i) => (
           <div key={i} className="flex capitalize items-center gap-1.5">
             <div
@@ -243,18 +243,18 @@ const Counts = (props: Props) => {
   return (
     <div
       className={twMerge(
-        "w-full flex items-end justify-between gap-10",
+        "w-full flex items-end justify-between sm:gap-10 gap-6 overflow-hidden",
         props.className,
       )}
     >
       <div className="flex flex-col gap-1">
-        <h3 className="text-black text-4xl font-semibold">
+        <h3 className="text-black md:text-4xl text-3xl font-semibold">
           {props.counts?.title}
         </h3>
         <p className="text-off-black/70 text-sm">{props.counts?.subtitle}</p>
       </div>
       {props.counts?.numbersList ? (
-        <div className={`flex items-center gap-5 text-2xl  `}>
+        <div className={`flex items-center sm:gap-5 gap-4 sm:text-2xl text-lg  `}>
           {props.counts.numbersList.map((item, idx) => (
             <div key={idx}>
               <h4
@@ -270,7 +270,7 @@ const Counts = (props: Props) => {
         </div>
       ) : (
         <div
-          className={`flex items-center gap-2 text-2xl  font-semibold" ${props.counts?.increment ? "text-green-500" : "text-red-500"}`}
+          className={`flex items-center gap-2 sm:text-2xl text-lg  font-semibold" ${props.counts?.increment ? "text-green-500" : "text-red-500"}`}
         >
           <span className="">{props.counts?.number}</span>
           <Icon
@@ -291,14 +291,14 @@ const Chart = (props: Props) => {
 
   return (
     <div className={twMerge("w-full", props.className)}>
-      <div className="flex items-end justify-start h-52 space-x-6 overflow-x-scroll hide-scrollbar">
+      <div className="flex items-end justify-start h-52 sm:space-x-6 space-x-4 overflow-x-scroll hide-scrollbar">
         {props.chart?.data!.map((dept, i) => {
           const heightPercent = (dept.count! / maxCount) * 100;
 
           return (
             <div
               key={i}
-              className="flex flex-col items-center justify-end group h-full relative w-14 shrink-0"
+              className="flex flex-col items-center justify-end group h-full relative sm:w-14 w-10 shrink-0"
             >
               {/* Tooltip */}
               <div className="absolute flex w-max text-xs top-0 bg-black text-white px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition">
@@ -317,7 +317,7 @@ const Chart = (props: Props) => {
               </div>
 
               {/* Label */}
-              <div className="mt-2 text-xs text-center capitalize text-off-black/70">
+              <div className="mt-2 text-xs text-center capitalize text-off-black/70 z-10 w-full overflow-hidden" >
                 {dept.labels}
               </div>
             </div>
@@ -357,11 +357,11 @@ const ChartGauge = (props: Props) => {
       />
 
       <div className="-mt-10">
-        <div className="text-3xl font-bold">{total}</div>
-        <div className="text-gray-500 text-sm">Total Employees</div>
+        <div className="sm:text-3xl text-2xl font-bold">{total}</div>
+        <div className="text-off-black/70 text-sm">Total Employees</div>
       </div>
 
-      <div className="flex justify-around mt-4 text-sm">
+      <div className="flex justify-around mt-4 sm:text-sm text-xs flex-wrap">
         {dataWithPercent!.map((item, index) => (
           <div
             key={index}
@@ -394,17 +394,17 @@ const ProfileList = (props: Props) => {
       )}
     >
       {props.profileList?.profiles!.map((p, i) => (
-        <div key={i} className="grid grid-cols-[40px_auto_1fr] gap-4">
+        <div key={i} className="grid grid-cols-[40px_auto_1fr] gap-4 items-center">
           <Image
             src={p.avatar}
             alt={p.name}
             width={40}
             height={40}
-            className="h-full aspect-square  rounded-full object-cover mr-4"
+            className="size-10 aspect-square  rounded-full object-cover mr-4"
           />
-          <div className="flex-1 flex-col flex items-start">
-            <div className="text-sm font-semibold text-gray-800">{p.name}</div>
-            <div className={`text-sm ${p.roleColor}`}>{p.role}</div>
+          <div className="flex-1 flex-col flex text-start items-start justify-start">
+            <div className="sm:text-sm text-xs font-semibold text-gray-800">{p.name}</div>
+            <div className={`sm:text-sm text-sm ${p.roleColor}`}>{p.role}</div>
           </div>
           <div className="flex items-center gap-1 text-sm mr-auto">
             <span className="text-yellow-500 text-base">★</span>
@@ -446,10 +446,10 @@ const AverageRating = (props: Props) => {
 
   return (
     <div className={twMerge("w-full flex-col", props.className)}>
-      <div className="flex items-center text-2xl font-semibold">
+      <div className="flex items-center sm:text-2xl text-xl font-semibold">
         <span className="text-orange-500">★</span>
-        <span className="text-5xl ml-1 mr-4">{averageRating}</span>
-        <span className="text-gray-400 text-sm font-normal">
+        <span className="sm:text-5xl text-4xl ml-1 mr-4">{averageRating}</span>
+        <span className="text-gray-400 sm:text-sm text-xs font-normal">
           Average <br /> rating
         </span>
       </div>
@@ -461,7 +461,7 @@ const AverageRating = (props: Props) => {
             style={{
               flex: bar.flex,
             }}
-            className="flex flex-col justify-start gap-2 font-semibold"
+            className="flex flex-col max-sm:text-xs justify-start gap-2 font-semibold"
           >
             <span>{bar.percent}% </span>
             <div

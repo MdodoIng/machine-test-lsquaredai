@@ -3,7 +3,7 @@ import React from "react";
 
 const Aside = () => {
   return (
-    <div className="  overflow-y-scroll hide-scrollbar  lg:pt-28 pb-20   flex flex-col w-full h-full gap-6">
+    <div className="  overflow-y-scroll hide-scrollbar  lg:pt-28 pb-20   flex flex-col w-full h-full md:gap-6 gap-4">
       <Card
         className="lg:bg-white"
         head={{
